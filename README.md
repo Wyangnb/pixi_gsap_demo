@@ -13,7 +13,24 @@
 <br/>
 <br/>
 # 实现思路
+## HTML
+```javascript
+    <audio id="audio" loop="loop" preload="auto" src="./medio/bg.mp3"></audio>
+  <div id="stage">
+    <div id="loading"></div>
+    <div id="speed_container">
+      <div id="speed"></div>
+    </div>
+  </div>
+  // 获取dom元素
+  let body = document.body;
+    let audio = document.getElementById("audio");
+    let loading = document.getElementById("loading");
+    let speed_container = document.getElementById("speed_container");
+    let speed = document.getElementById("speed");
+```
 ## 一、PIXI.JS
+
 将场景所需要的图片利用pixi.js绘制出来。<br/>
 1、创建PIXI应用。<br/>
 
@@ -283,6 +300,15 @@
       // 飞机逐帧动画
       planeSpr.animationSpeed = 0.2;
       planeSpr.play();
+      
+      // 播放音频
+      body.addEventListener('touchstart',()=>{
+        audio.play();
+      })
+      // 播放音频
+      body.addEventListener('touchend',()=>{
+        audio.play();
+      })
 ```
 # 四、结语
 `博主声明（项目中素材来源于网络，仅供交流学习使用，切勿商用！）;`

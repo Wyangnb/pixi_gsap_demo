@@ -37,6 +37,7 @@
   </style>
 </head>
 <body>
+  <audio id="audio" loop="loop" preload="auto" src="./medio/bg.mp3"></audio>
   <div id="stage">
     <div id="loading"></div>
     <div id="speed_container">
@@ -47,10 +48,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
   <script src="./js/Alloytouch.js"></script>
    <script>
-     let body = document.body;
+    let body = document.body;
+    let audio = document.getElementById("audio");
     let loading = document.getElementById("loading");
     let speed_container = document.getElementById("speed_container");
     let speed = document.getElementById("speed");
+    
     // 创建舞台
       const width = window.screen.width;
       const height = window.screen.height;
@@ -173,7 +176,7 @@
       itemsSpr1.scale.set(2);
       itemsSpr2.scale.set(2);
       itemsSpr3.scale.set(6);
-      itemsSpr4.scale.set(6);
+      itemsSpr4.scale.set(4);
       itemsSpr5.scale.set(6);
       itemsSpr6.scale.set(6);
       itemsSpr7.scale.set(14);
@@ -200,11 +203,9 @@
         value: 0, // 初始值
         change:function(value){
           let myProgress = value / moveMin;
-          console.log("value",value);
-          console.log("moveMin",moveMin);
-          console.log("myProgress",myProgress);
           timeList.seek(myProgress);
           animatePlay(myProgress);
+          audio.play();
         }
       });
 
@@ -250,13 +251,13 @@
       // 把动画添加到子时间轴
       t1.add(textTwenn,0).add(twenn1,0)
       .add(girlTwenn1,0).add(girlTwenn2,0.5)
-      .add(itemsTwenn1,0.21).add(itemsTwenn2,0.21)
-      .add(items2Twenn1,0.22).add(items2Twenn2,0.22)
-      .add(items3Twenn1,0.23).add(items3Twenn2,0.23)
-      .add(items4Twenn1,0.24).add(items4Twenn2,0.24)
+      .add(itemsTwenn1,0.19).add(itemsTwenn2,0.19)
+      .add(items2Twenn1,0.19).add(items2Twenn2,0.19)
+      .add(items3Twenn1,0.21).add(items3Twenn2,0.21)
+      .add(items4Twenn1,0.23).add(items4Twenn2,0.23)
       .add(items5Twenn1,0.25).add(items5Twenn2,0.25)
-      .add(items6Twenn1,0.26).add(items6Twenn2,0.26)
-      .add(items7Twenn1,0.27).add(items7Twenn2,0.27)
+      .add(items6Twenn1,0.27).add(items6Twenn2,0.27)
+      .add(items7Twenn1,0.29).add(items7Twenn2,0.29)
       .add(planeTwenn1,0.6).add(planeTwenn2,0.6);
       t1.add(twenn2,0.4);
 
@@ -302,7 +303,15 @@
       // 飞机逐帧动画
       planeSpr.animationSpeed = 0.2;
       planeSpr.play();
-      
+
+      // 播放音频
+      body.addEventListener('touchstart',()=>{
+        audio.play();
+      })
+      // 播放音频
+      body.addEventListener('touchend',()=>{
+        audio.play();
+      })
       // 渲染到页面
       document.getElementById("stage").appendChild(app.view);
     } 
