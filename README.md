@@ -22,8 +22,8 @@
       <div id="speed"></div>
     </div>
   </div>
-  // 获取dom元素
-  let body = document.body;
+    // 获取dom元素
+    let body = document.body;
     let audio = document.getElementById("audio");
     let loading = document.getElementById("loading");
     let speed_container = document.getElementById("speed_container");
@@ -36,12 +36,12 @@
 
 ```javascript
     const width = window.screen.width;
-      const height = window.screen.height;
-      let app = new PIXI.Application(width,height , {
-        backgroundColor: 0xFFE4B5,
-      });
-      // 渲染到页面
-      document.getElementById("stage").appendChild(app.view);
+    const height = window.screen.height;
+    let app = new PIXI.Application(width,height , {
+      backgroundColor: 0xFFE4B5,
+    });
+    // 渲染到页面
+    document.getElementById("stage").appendChild(app.view);
 ```
 2、加载图片素材。<br/>
 ```javascript
@@ -58,7 +58,7 @@
       let temp = i;
       girl.push(`./imgs/girl/${160+temp}.png`);
     }
-
+    
     // 飞机
     let planeArr = [];
     for (let i = 8; i <= 33; i++) {
@@ -174,8 +174,8 @@
 4、创建一个总时间轴。<br/>
 ```javascript
     // 创建一个总时间轴
-      let timeList = new gsap.timeline({paused: true});
-      let moveMin = -2000;
+    let timeList = new gsap.timeline({paused: true});
+    let moveMin = -2000;
 ```
 # 二、AlloyTouch
 实例一个AlloyTouch对象：
@@ -199,116 +199,116 @@
 1、创建一个时间轴。<br/>
 ```javascript
     // 创建一个时间轴
-      let t1 = new gsap.timeline({delay: 0});
+    let t1 = new gsap.timeline({delay: 0});
 ```
 2、根据需求设定动画。<br/>
 ```javascript
     // 创建一个时间轴
     // 文字动画
-      let textTwenn = gsap.to(text,0.05,{alpha:0});
-      let textTwenn2 = gsap.from(text,1,{y:height / 2 -70,onComplete:()=>{
-        textTwenn2.reverse(0);
-      },onReverseComplete:()=>{
-        textTwenn2.play();
-      }})
+    let textTwenn = gsap.to(text,0.05,{alpha:0});
+    let textTwenn2 = gsap.from(text,1,{y:height / 2 -70,onComplete:()=>{
+      textTwenn2.reverse(0);
+    },onReverseComplete:()=>{
+      textTwenn2.play();
+    }})
 
-      // 背景1动画，在整体滚动的0.1完成执行透明到显示
-      let twenn1 = gsap.to(aniSpr,0.4,{alpha: 1});
-      let twenn2 = gsap.to(aniSpr,1,{alpha: 0});
+    // 背景1动画，在整体滚动的0.1完成执行透明到显示
+    let twenn1 = gsap.to(aniSpr,0.4,{alpha: 1});
+    let twenn2 = gsap.to(aniSpr,1,{alpha: 0});
 
-      // 女孩动画
-      let girlTwenn1 = gsap.to(girlSpr,0.1,{y:height/2});
-      let girlTwenn2 = gsap.to(girlSpr,0.7,{y:height+girlSpr.height/2});
+    // 女孩动画
+    let girlTwenn1 = gsap.to(girlSpr,0.1,{y:height/2});
+    let girlTwenn2 = gsap.to(girlSpr,0.7,{y:height+girlSpr.height/2});
 
-      // 物件动画
-      let itemsTwenn1 = gsap.to(itemsSpr1.position,0.2,{x:100,y:-150});
-      let itemsTwenn2 = gsap.to(itemsSpr1.scale,0.2,{x:0.1,y:0.1});
-      let items2Twenn1 = gsap.to(itemsSpr2.position,0.2,{x:width-100,y:-150});
-      let items2Twenn2 = gsap.to(itemsSpr2.scale,0.2,{x:0.1,y:0.1});
-      let items3Twenn1 = gsap.to(itemsSpr3.position,0.2,{x:100,y:-150});
-      let items3Twenn2 = gsap.to(itemsSpr3.scale,0.2,{x:0.1,y:0.1});
-      let items4Twenn1 = gsap.to(itemsSpr4.position,0.2,{x:width-100,y:-150});
-      let items4Twenn2 = gsap.to(itemsSpr4.scale,0.2,{x:0.1,y:0.1});
-      let items5Twenn1 = gsap.to(itemsSpr5.position,0.2,{x:100,y:-150});
-      let items5Twenn2 = gsap.to(itemsSpr5.scale,0.2,{x:0.1,y:0.1});
-      let items6Twenn1 = gsap.to(itemsSpr6.position,0.2,{x:width-100,y:-150});
-      let items6Twenn2 = gsap.to(itemsSpr6.scale,0.2,{x:0.1,y:0.1});
-      let items7Twenn1 = gsap.to(itemsSpr7.position,0.2,{x:100,y:-150});
-      let items7Twenn2 = gsap.to(itemsSpr7.scale,0.2,{x:0.1,y:0.1});
+    // 物件动画
+    let itemsTwenn1 = gsap.to(itemsSpr1.position,0.2,{x:100,y:-150});
+    let itemsTwenn2 = gsap.to(itemsSpr1.scale,0.2,{x:0.1,y:0.1});
+    let items2Twenn1 = gsap.to(itemsSpr2.position,0.2,{x:width-100,y:-150});
+    let items2Twenn2 = gsap.to(itemsSpr2.scale,0.2,{x:0.1,y:0.1});
+    let items3Twenn1 = gsap.to(itemsSpr3.position,0.2,{x:100,y:-150});
+    let items3Twenn2 = gsap.to(itemsSpr3.scale,0.2,{x:0.1,y:0.1});
+    let items4Twenn1 = gsap.to(itemsSpr4.position,0.2,{x:width-100,y:-150});
+    let items4Twenn2 = gsap.to(itemsSpr4.scale,0.2,{x:0.1,y:0.1});
+    let items5Twenn1 = gsap.to(itemsSpr5.position,0.2,{x:100,y:-150});
+    let items5Twenn2 = gsap.to(itemsSpr5.scale,0.2,{x:0.1,y:0.1});
+    let items6Twenn1 = gsap.to(itemsSpr6.position,0.2,{x:width-100,y:-150});
+    let items6Twenn2 = gsap.to(itemsSpr6.scale,0.2,{x:0.1,y:0.1});
+    let items7Twenn1 = gsap.to(itemsSpr7.position,0.2,{x:100,y:-150});
+    let items7Twenn2 = gsap.to(itemsSpr7.scale,0.2,{x:0.1,y:0.1});
 
-      //飞机动画
-      let planeTwenn1 = gsap.to(planeSpr.scale,0.3,{x:0.4,y:0.4})
-      let planeTwenn2 = gsap.to(planeSpr,0.3,{alpha:1})
+    //飞机动画
+    let planeTwenn1 = gsap.to(planeSpr.scale,0.3,{x:0.4,y:0.4})
+    let planeTwenn2 = gsap.to(planeSpr,0.3,{alpha:1})
 
       
 ```
 2、把动画添加到时间轴。<br/>
 ```javascript
     // 把动画添加到子时间轴
-      t1.add(textTwenn,0).add(twenn1,0)
-      .add(girlTwenn1,0).add(girlTwenn2,0.5)
-      .add(itemsTwenn1,0.21).add(itemsTwenn2,0.21)
-      .add(items2Twenn1,0.22).add(items2Twenn2,0.22)
-      .add(items3Twenn1,0.23).add(items3Twenn2,0.23)
-      .add(items4Twenn1,0.24).add(items4Twenn2,0.24)
-      .add(items5Twenn1,0.25).add(items5Twenn2,0.25)
-      .add(items6Twenn1,0.26).add(items6Twenn2,0.26)
-      .add(items7Twenn1,0.27).add(items7Twenn2,0.27)
-      .add(planeTwenn1,0.6).add(planeTwenn2,0.6);
-      t1.add(twenn2,0.4);
+    t1.add(textTwenn,0).add(twenn1,0)
+    .add(girlTwenn1,0).add(girlTwenn2,0.5)
+    .add(itemsTwenn1,0.21).add(itemsTwenn2,0.21)
+    .add(items2Twenn1,0.22).add(items2Twenn2,0.22)
+    .add(items3Twenn1,0.23).add(items3Twenn2,0.23)
+    .add(items4Twenn1,0.24).add(items4Twenn2,0.24)
+    .add(items5Twenn1,0.25).add(items5Twenn2,0.25)
+    .add(items6Twenn1,0.26).add(items6Twenn2,0.26)
+    .add(items7Twenn1,0.27).add(items7Twenn2,0.27)
+    .add(planeTwenn1,0.6).add(planeTwenn2,0.6);
+    t1.add(twenn2,0.4);
 
-      // 把子时间轴添加到总时间轴
-      timeList.add(t1,0);
+    // 把子时间轴添加到总时间轴
+    timeList.add(t1,0);
 ```
 3、序列帧动画。根据AlloyTouch监听用户滑动距离来实现序列帧动画图片切换。<br/>
 ```javascript
     function animatePlay(progress){
-        // 从总时间轴0.01开始
-        if (progress>=0.01) {
-          let imgArrNum = ani.length;
-          // 根据滑动的数值获取要切换图片的下标
-          let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
-          let temp2 = index;
-          if (temp2<imgArrNum) {
-            // 改变精灵
-            aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${700+temp2}.png`);
-          }
-
-          // 女孩动画
-          let imgArrNum2 = girl.length;
-          let index2 =Math.floor((progress - 0.01) / 0.7 * imgArrNum2);
-          let temp3 = index2;
-          if (progress>=0.05) {
-            if (temp3< imgArrNum2) {
-              girlSpr.texture = new PIXI.Texture.fromImage(`./imgs/girl/${160+temp3}.png`)
-            }
-          }
+      // 从总时间轴0.01开始
+      if (progress>=0.01) {
+        let imgArrNum = ani.length;
+        // 根据滑动的数值获取要切换图片的下标
+        let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
+        let temp2 = index;
+        if (temp2<imgArrNum) {
+          // 改变精灵
+          aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${700+temp2}.png`);
         }
-        if (progress>=0.4) {
-          let imgArrNum = ani.length;
-          let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
-          let temp2 = index;
-          if (temp2>imgArrNum) {
-            if (800-temp2>700) {
-              // 改变精灵
-              aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${800-temp2}.png`);
-            }
+
+        // 女孩动画
+        let imgArrNum2 = girl.length;
+        let index2 =Math.floor((progress - 0.01) / 0.7 * imgArrNum2);
+        let temp3 = index2;
+        if (progress>=0.05) {
+          if (temp3< imgArrNum2) {
+            girlSpr.texture = new PIXI.Texture.fromImage(`./imgs/girl/${160+temp3}.png`)
           }
         }
       }
+      if (progress>=0.4) {
+        let imgArrNum = ani.length;
+        let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
+        let temp2 = index;
+        if (temp2>imgArrNum) {
+          if (800-temp2>700) {
+            // 改变精灵
+            aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${800-temp2}.png`);
+          }
+        }
+      }
+    }
 
-      // 飞机逐帧动画
-      planeSpr.animationSpeed = 0.2;
-      planeSpr.play();
-      
-      // 播放音频
-      body.addEventListener('touchstart',()=>{
-        audio.play();
-      })
-      // 播放音频
-      body.addEventListener('touchend',()=>{
-        audio.play();
-      })
+    // 飞机逐帧动画
+    planeSpr.animationSpeed = 0.2;
+    planeSpr.play();
+    
+    // 播放音频
+    body.addEventListener('touchstart',()=>{
+      audio.play();
+    })
+    // 播放音频
+    body.addEventListener('touchend',()=>{
+      audio.play();
+    })
 ```
 # 四、结语
 `博主声明（项目中素材来源于网络，仅供交流学习使用，切勿商用！）;`
