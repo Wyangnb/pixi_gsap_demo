@@ -29,6 +29,33 @@
     let speed_container = document.getElementById("speed_container");
     let speed = document.getElementById("speed");
 ```
+## CSS
+```javascript
+   *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background-color: #FFE4B5;
+    }
+    #stage{
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      color: #FF9900;
+    }
+    #speed_container{
+      width: 300px;
+      height: 1px;
+      border-radius: 25px;
+    }
+    #speed{
+      width: 0;
+      height: 1px;
+      background-color: #FF9900;
+      border-radius: 25px;
+    }
+```
 ## 一、PIXI.JS
 
 将场景所需要的图片利用pixi.js绘制出来。<br/>
