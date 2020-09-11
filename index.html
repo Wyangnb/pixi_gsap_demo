@@ -63,29 +63,36 @@
     // ****************************** 1、加载动画素材**********************************
     // 加载素材
     // 漩涡
-    let ani = [];
+    let aniArr = [];
+    let aniArr2 = []; // 反转
+    let ani = []; // 预加载
     for (let i = 1; i <= 50; i++) {
-      let temp = i;
-      ani.push(`./imgs/ani/${700+temp}.png`);
+      aniArr.push(PIXI.Texture.from(`./imgs/ani/${700 + i}.png`));
+      aniArr2.unshift(PIXI.Texture.from(`./imgs/ani/${700 + i}.png`));
+      ani.push(`./imgs/ani/${700 + i}.png`);
     }
 
     // 女孩
-    let girl = [];
+    let girlArr = [];
+    let girl = []; // 预加载
     for (let i = 0; i <= 62; i++) {
-      let temp = i;
-      girl.push(`./imgs/girl/${160+temp}.png`);
+      girlArr.push(PIXI.Texture.from(`./imgs/girl/${160 + i}.png`));
+      girl.push(`./imgs/girl/${160 + i}.png`);
     }
 
     // 飞机
     let planeArr = [];
+    let plane = []; // 预加载
     for (let i = 8; i <= 33; i++) {
-      let temp = i;
-      planeArr.push(`./imgs/plane/${400+temp}.png`);
+      planeArr.push(PIXI.Texture.from(`./imgs/plane/${400 + i}.png`));
+      plane.push(`./imgs/plane/${400 + i}.png`);
     }
     // 物件
     let itemsArr = [];
+    let items = []; // 预加载
     for (let i = 1; i <= 7; i++) {
-      itemsArr.push(`./imgs/items/${i}.png`)
+      itemsArr.push(PIXI.Texture.from(`./imgs/items/${i}.png`));
+      items.push(`./imgs/items/${i}.png`);
     }
     // 文字样式
     let style =new PIXI.TextStyle({
@@ -94,53 +101,49 @@
       fill: '#FF9900',
     })
     // loader素材
-    PIXI.loader.add([ani,girl]).on("progress",(loader,resources)=>{
+    PIXI.loader.add([ani, girl, plane, items]).on("progress", (loader, resources)=>{
       body.style.height = window.screen.height;
       body.style.width = window.screen.width;
-      loading.style.position="absolute";
-      speed_container.style.position="absolute";
-      loading.style.left=`${window.screen.width / 2}px`
-      loading.style.top=`${window.screen.height / 2}px`
-      speed_container.style.left=`${(window.screen.width-300)/2}px`
-      speed_container.style.top=`${window.screen.height / 2+50}px`
-      loading.innerText =parseInt(loader.progress)+'%';
+      loading.style.position = "absolute";
+      speed_container.style.position = "absolute";
+      loading.style.left = `${window.screen.width / 2}px`;
+      loading.style.top = `${window.screen.height / 2}px`;
+      speed_container.style.left = `${(window.screen.width - 300) / 2}px`;
+      speed_container.style.top = `${window.screen.height / 2 + 50}px`;
+      loading.innerText = parseInt(loader.progress) + '%';
       speed.style.width = `${parseInt(loader.progress)}%`;
       
-      if (parseInt(loader.progress) == 100) {
-        loading.innerText = ""
-        speed_container.style.display="none";
+      if (Math.ceil(loader.progress) == 100) {
+        loading.innerText = "";
+        speed_container.style.display= "none";
       }
     }).load(setup);
 
     // 加载完成执行函数
     function setup(){
       // 创建精灵
-      // 漩涡精灵
-      let aniSpr = new PIXI.Sprite.fromImage(ani[0]);
-      // 女孩精灵
-      let girlSpr = new PIXI.Sprite.fromImage(girl[0]);
-      // 飞机精灵
-      let textureArr = [];
-      for (let i = 0; i < planeArr.length; i++) {
-        let texture = PIXI.Texture.from(planeArr[i]);
-        textureArr.push(texture);
-      }
-      let planeSpr = new PIXI.extras.AnimatedSprite(textureArr);
-      // 物件精灵
-      let itemsSpr1 = new PIXI.Sprite.fromImage(itemsArr[0]);
-      let itemsSpr2 = new PIXI.Sprite.fromImage(itemsArr[1]);
-      let itemsSpr3 = new PIXI.Sprite.fromImage(itemsArr[2]);
-      let itemsSpr4 = new PIXI.Sprite.fromImage(itemsArr[3]);
-      let itemsSpr5 = new PIXI.Sprite.fromImage(itemsArr[4]);
-      let itemsSpr6 = new PIXI.Sprite.fromImage(itemsArr[5]);
-      let itemsSpr7 = new PIXI.Sprite.fromImage(itemsArr[6]);
       // 文字精灵
-      let text = new PIXI.Text("向上滑动，找回童年",style);
+      let text = new PIXI.Text("向上滑动，找回童年", style);
+      // 漩涡精灵
+      let aniSpr = new PIXI.Sprite(aniArr[0]);
+      // 女孩精灵
+      let girlSpr = new PIXI.Sprite(girlArr[0]);
+      // 物件精灵
+      let itemsSpr1 = new PIXI.Sprite(itemsArr[0]);
+      let itemsSpr2 = new PIXI.Sprite(itemsArr[1]);
+      let itemsSpr3 = new PIXI.Sprite(itemsArr[2]);
+      let itemsSpr4 = new PIXI.Sprite(itemsArr[3]);
+      let itemsSpr5 = new PIXI.Sprite(itemsArr[4]);
+      let itemsSpr6 = new PIXI.Sprite(itemsArr[5]);
+      let itemsSpr7 = new PIXI.Sprite(itemsArr[6]);
+      // 飞机精灵
+      let planeSpr = new PIXI.extras.AnimatedSprite(planeArr);
+
       // 设置中心轴
+      text.anchor.set(0.5);
       aniSpr.anchor.set(0.5);
       girlSpr.anchor.set(0.5);
       planeSpr.anchor.set(0.5);
-      text.anchor.set(0.5);
       itemsSpr1.anchor.set(0.5);
       itemsSpr2.anchor.set(0.5);
       itemsSpr3.anchor.set(0.5);
@@ -150,62 +153,53 @@
       itemsSpr7.anchor.set(0.5);
 
       // 精灵位置
-      // 漩涡
-      aniSpr.position.set(width / 2, height / 2);
-      // 女孩
-      girlSpr.position.set(width / 2, -girlSpr.height / 2);
-      // 物件
-      // 左边
-      itemsSpr1.position.set(0,height+150);
-      itemsSpr3.position.set(-200,height+2550);
-      itemsSpr5.position.set(-500,height+4950);
-      itemsSpr7.position.set(-800,height+7500);
-      // 右边
-      itemsSpr2.position.set(width,height+900);
-      itemsSpr4.position.set(width,height+3300);
-      itemsSpr6.position.set(width,height+5700);
-      // 飞机
-      planeSpr.position.set(width / 2, height / 2 - 50);
-      // 文字
       text.position.set(width / 2, height / 2 - 100);
+      aniSpr.position.set(width / 2, height / 2);
+      girlSpr.position.set(width / 2, -girlSpr.height / 2);
+      itemsSpr1.position.set(0, height + 300);
+      itemsSpr2.position.set(width, height + 300);
+      itemsSpr3.position.set(0, height + 300);
+      itemsSpr4.position.set(width, height + 300);
+      itemsSpr5.position.set(0, height + 300);
+      itemsSpr6.position.set(width, height + 300);
+      itemsSpr7.position.set(0, height + 300);
+      planeSpr.position.set(width / 2, height / 2 - 50);
 
       // 精灵缩放
       aniSpr.scale.set(0.55);
       girlSpr.scale.set(0.6);
+      itemsSpr1.scale.set(1.5);
+      itemsSpr2.scale.set(1.5);
+      itemsSpr3.scale.set(1.5);
+      itemsSpr4.scale.set(1.5);
+      itemsSpr5.scale.set(1.5);
+      itemsSpr6.scale.set(1.5);
+      itemsSpr7.scale.set(1.5);
       planeSpr.scale.set(0);
-      itemsSpr1.scale.set(2);
-      itemsSpr2.scale.set(2);
-      itemsSpr3.scale.set(6);
-      itemsSpr4.scale.set(4);
-      itemsSpr5.scale.set(6);
-      itemsSpr6.scale.set(6);
-      itemsSpr7.scale.set(14);
       // 透明
       aniSpr.alpha = 0;
-      girlSpr.alpha = 1;
       planeSpr.alpha = 0;
 
       // 添加到舞台
-      app.stage.addChild(aniSpr,girlSpr,planeSpr,text,itemsSpr1,itemsSpr2,itemsSpr3,itemsSpr4,itemsSpr5,itemsSpr6,itemsSpr7);
+      app.stage.addChild(text, aniSpr, girlSpr, planeSpr, itemsSpr1, itemsSpr2, itemsSpr3, itemsSpr4, itemsSpr5, itemsSpr6, itemsSpr7);
 
       // 创建一个总时间轴
       let timeList = new gsap.timeline({paused: true});
-      let moveMin = -2000;
 
       // ****************************** 2、滑动事件**************************************
       let toch = new AlloyTouch({
         touch: document.getElementById("stage"),
         maxSpeed: 0.4, // 最大滑动速度
-        target:{y:0}, // 滑动对象
+        target: {y:0}, // 滑动对象
         property: 'y', // 被滑动属性
-        min: -2000, // 滑动最小值
+        min: -6000, // 滑动最小值
         max: 0, // 滑动最大值
         value: 0, // 初始值
-        change:function(value){
-          let myProgress = value / moveMin;
-          timeList.seek(myProgress);
-          animatePlay(myProgress);
+        change: function(value){
+          let move = value / -2000;
           audio.play();
+          timeList.seek(move);
+          animatePlay(move);
         }
       });
 
@@ -213,105 +207,81 @@
       let t1 = new gsap.timeline({delay: 0});
 
       // 文字动画
-      let textTwenn = gsap.to(text,0.05,{alpha:0});
-      let textTwenn2 = gsap.from(text,1,{y:height / 2 -70,onComplete:()=>{
+      let textTwenn = gsap.to(text, 0.05, {alpha: 0});
+      let textTwenn2 = gsap.from(text, 1, {y: height / 2 -70,
+      onComplete: ()=>{
         textTwenn2.reverse(0);
-      },onReverseComplete:()=>{
+      },onReverseComplete: ()=>{
         textTwenn2.play();
-      }})
+      }});
 
-      // 背景1动画，在整体滚动的0.1完成执行透明到显示
-      let twenn1 = gsap.to(aniSpr,0.4,{alpha: 1});
-      let twenn2 = gsap.to(aniSpr,1,{alpha: 0});
+      // 漩涡动画
+      let aniTwenn1 = gsap.to(aniSpr, 0, {alpha: 1});
+      let aniTwenn2 = gsap.to(aniSpr, 2, {alpha: 0});
 
       // 女孩动画
-      let girlTwenn1 = gsap.to(girlSpr,0.1,{y:height/2});
-      let girlTwenn2 = gsap.to(girlSpr,0.7,{y:height+girlSpr.height/2});
+      let girlTwenn1 = gsap.to(girlSpr, 0.5, {y: height/2});
+      let girlTwenn2 = gsap.to(girlSpr, 1.5, {y: height + girlSpr.height / 2});
 
       // 物件动画
-      let itemsTwenn1 = gsap.to(itemsSpr1.position,0.2,{x:100,y:-150});
-      let itemsTwenn2 = gsap.to(itemsSpr1.scale,0.2,{x:0.1,y:0.1});
-      let items2Twenn1 = gsap.to(itemsSpr2.position,0.2,{x:width-100,y:-150});
-      let items2Twenn2 = gsap.to(itemsSpr2.scale,0.2,{x:0.1,y:0.1});
-      let items3Twenn1 = gsap.to(itemsSpr3.position,0.2,{x:100,y:-150});
-      let items3Twenn2 = gsap.to(itemsSpr3.scale,0.2,{x:0.1,y:0.1});
-      let items4Twenn1 = gsap.to(itemsSpr4.position,0.2,{x:width-100,y:-150});
-      let items4Twenn2 = gsap.to(itemsSpr4.scale,0.2,{x:0.1,y:0.1});
-      let items5Twenn1 = gsap.to(itemsSpr5.position,0.2,{x:100,y:-150});
-      let items5Twenn2 = gsap.to(itemsSpr5.scale,0.2,{x:0.1,y:0.1});
-      let items6Twenn1 = gsap.to(itemsSpr6.position,0.2,{x:width-100,y:-150});
-      let items6Twenn2 = gsap.to(itemsSpr6.scale,0.2,{x:0.1,y:0.1});
-      let items7Twenn1 = gsap.to(itemsSpr7.position,0.2,{x:100,y:-150});
-      let items7Twenn2 = gsap.to(itemsSpr7.scale,0.2,{x:0.1,y:0.1});
+      let items1Tween1 = gsap.to(itemsSpr1.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items1Tween2 = gsap.to(itemsSpr1.position, 0.5, { x: 100, y: -100 });
+      let items2Tween1 = gsap.to(itemsSpr2.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items2Tween2 = gsap.to(itemsSpr2.position, 0.5, { x: width - 100, y: -100 });
+      let items3Tween1 = gsap.to(itemsSpr3.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items3Tween2 = gsap.to(itemsSpr3.position, 0.5, { x: 100, y: -100 });
+      let items4Tween1 = gsap.to(itemsSpr4.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items4Tween2 = gsap.to(itemsSpr4.position, 0.5, { x: width - 100, y: -100 });
+      let items5Tween1 = gsap.to(itemsSpr5.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items5Tween2 = gsap.to(itemsSpr5.position, 0.5, { x: 100, y: -100 });
+      let items6Tween1 = gsap.to(itemsSpr6.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items6Tween2 = gsap.to(itemsSpr6.position, 0.5, { x: width - 100, y: -100 });
+      let items7Tween1 = gsap.to(itemsSpr7.scale, 0.5, { x: 0.2, y: 0.2 });
+      let items7Tween2 = gsap.to(itemsSpr7.position, 0.5, { x: 100, y: -100 });
 
       //飞机动画
-      let planeTwenn1 = gsap.to(planeSpr.scale,0.3,{x:0.4,y:0.4})
-      let planeTwenn2 = gsap.to(planeSpr,0.3,{alpha:1})
+      let planeTwenn1 = gsap.to(planeSpr.scale, 0.5,{x: 0.4,y: 0.4});
+      let planeTwenn2 = gsap.to(planeSpr, 0.5, {alpha: 1});
 
       // 把动画添加到子时间轴
-      t1.add(textTwenn,0).add(twenn1,0)
-      .add(girlTwenn1,0).add(girlTwenn2,0.5)
-      .add(itemsTwenn1,0.19).add(itemsTwenn2,0.19)
-      .add(items2Twenn1,0.19).add(items2Twenn2,0.19)
-      .add(items3Twenn1,0.21).add(items3Twenn2,0.21)
-      .add(items4Twenn1,0.23).add(items4Twenn2,0.23)
-      .add(items5Twenn1,0.25).add(items5Twenn2,0.25)
-      .add(items6Twenn1,0.27).add(items6Twenn2,0.27)
-      .add(items7Twenn1,0.29).add(items7Twenn2,0.29)
-      .add(planeTwenn1,0.6).add(planeTwenn2,0.6);
-      t1.add(twenn2,0.4);
+      t1.add(textTwenn, 0).add(aniTwenn1,0.1).add(aniTwenn2, 1.5)
+        .add(girlTwenn1, 0).add(girlTwenn2, 2.1)
+        .add(items1Tween1, 0.8).add(items1Tween2, 0.8)
+        .add(items2Tween1, 0.9).add(items2Tween2, 0.9)
+        .add(items3Tween1, 1).add(items3Tween2, 1)
+        .add(items4Tween1, 1.1).add(items4Tween2, 1.1)
+        .add(items5Tween1, 1.2).add(items5Tween2, 1.2)
+        .add(items6Tween1, 1.3).add(items6Tween2, 1.3)
+        .add(items7Tween1, 1.4).add(items7Tween2, 1.4)
+        .add(planeTwenn1, 2.5).add(planeTwenn2, 2.5);
 
       // 把子时间轴添加到总时间轴
-      timeList.add(t1,0);
+      timeList.add(t1, 0);
 
       // ****************************** 4、序列帧动画************************************
-      function animatePlay(progress){
-        // 从总时间轴0.01开始
-        if (progress>=0.01) {
-          let imgArrNum = ani.length;
-          // 根据滑动的数值获取要切换图片的下标
-          let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
-          let temp2 = index;
-          if (temp2<imgArrNum) {
-            // 改变精灵
-            aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${700+temp2}.png`);
-          }
-
-          // 女孩动画
-          let imgArrNum2 = girl.length;
-          let index2 =Math.floor((progress - 0.01) / 0.7 * imgArrNum2);
-          let temp3 = index2;
-          if (progress>=0.05) {
-            if (temp3< imgArrNum2) {
-              girlSpr.texture = new PIXI.Texture.fromImage(`./imgs/girl/${160+temp3}.png`)
+      function animatePlay (params) {
+        // 漩涡
+        let aniArrSum = aniArr.length;
+        if (params < 1.5 && params > 0) {
+            let img = aniArr[Math.floor(params / 1.5 * aniArrSum)];
+            aniSpr.texture = new PIXI.Texture.from(img.textureCacheIds[0]);
+        } else {
+            if (params < 3 && params > 0) {
+                let img = aniArr2[Math.floor((params / 1.5 * aniArrSum) - aniArrSum)];
+                aniSpr.texture = new PIXI.Texture.from(img.textureCacheIds[0]);
             }
-          }
         }
-        if (progress>=0.4) {
-          let imgArrNum = ani.length;
-          let index =Math.floor((progress - 0.01) / 0.4 * imgArrNum);
-          let temp2 = index;
-          if (temp2>imgArrNum) {
-            if (800-temp2>700) {
-              // 改变精灵
-              aniSpr.texture = new PIXI.Texture.fromImage(`./imgs/ani/${800-temp2}.png`);
-            }
-          }
+        // 女孩
+        let girlArrSum = girlArr.length;
+        if (params < 3 && params > 0) {
+            let img = girlArr[Math.floor(params / 3 * girlArrSum)];
+            girlSpr.texture = new PIXI.Texture.from(img.textureCacheIds[0]);
         }
-      }
+    };
 
       // 飞机逐帧动画
       planeSpr.animationSpeed = 0.2;
       planeSpr.play();
-
-      // 播放音频
-      body.addEventListener('touchstart',()=>{
-        audio.play();
-      })
-      // 播放音频
-      body.addEventListener('touchend',()=>{
-        audio.play();
-      })
       // 渲染到页面
       document.getElementById("stage").appendChild(app.view);
     } 
