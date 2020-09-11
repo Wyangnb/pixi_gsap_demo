@@ -56,6 +56,12 @@
       border-radius: 25px;
     }
 ```
+## 引入文件
+```javascript
+    <script src="./js/Pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <script src="./js/Alloytouch.js"></script>
+```
 ## 一、PIXI.JS
 
 将场景所需要的图片利用pixi.js绘制出来。<br/>
